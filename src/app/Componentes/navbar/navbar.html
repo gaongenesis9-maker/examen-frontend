@@ -1,0 +1,28 @@
+<nav class="navbar">
+  <div class="navbar-logo">
+    <h2>BioTech</h2>
+  </div>
+
+  <ul class="navbar-links">
+    <li *ngIf="esAdmin()">
+      <a routerLink="/pacientes" routerLinkActive="activo">Pacientes</a>
+    </li>
+
+    <li *ngIf="esAdmin()">
+      <a routerLink="/medicos" routerLinkActive="activo">Médicos</a>
+    </li>
+
+    <li *ngIf="esAdmin()">
+      <a routerLink="/servicios" routerLinkActive="activo">Servicios</a>
+    </li>
+
+    <li *ngIf="esAdmin() || esMedico() || esPaciente()">
+      <a routerLink="/consultas" routerLinkActive="activo">Consultas</a>
+    </li>
+  </ul>
+
+  <div class="navbar-derecha">
+    <span class="rol-usuario">Rol: {{ rol }}</span>
+    <button class="btn-salir" (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
+</nav>

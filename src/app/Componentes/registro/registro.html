@@ -1,0 +1,32 @@
+<div class="registro-container">
+  <div class="registro-card">
+    <h2>Crear Cuenta</h2>
+
+    <form (ngSubmit)="registrar()">
+      <label for="username">Usuario</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="username"
+        placeholder="Ingrese su usuario"
+      />
+
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Ingrese su contraseña"
+      />
+
+      <button type="submit">Registrarse</button>
+
+      <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+      <p *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</p>
+
+      <a routerLink="/login" class="volver-login">Ya tengo cuenta</a>
+    </form>
+  </div>
+</div>

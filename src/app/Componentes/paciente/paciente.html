@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+<div class="contenedor-pacientes">
+  <h2>Gestión de Pacientes</h2>
+
+  <form class="formulario-paciente" (ngSubmit)="guardarPaciente()">
+    <div class="grupo">
+      <label for="nombre">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="nuevoPaciente.nombre"
+        placeholder="Ingrese el nombre"
+      />
+    </div>
+
+    <div class="grupo">
+      <label for="apellido">Apellido</label>
+      <input
+        type="text"
+        id="apellido"
+        name="apellido"
+        [(ngModel)]="nuevoPaciente.apellido"
+        placeholder="Ingrese el apellido"
+      />
+    </div>
+
+    <div class="grupo">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="nuevoPaciente.email"
+        placeholder="Ingrese el correo"
+      />
+    </div>
+
+    <button type="submit">Guardar Paciente</button>
+  </form>
+
+  <table *ngIf="listaPacientes.length > 0; else sinDatos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paciente of listaPacientes">
+        <td>{{ paciente.id }}</td>
+        <td>{{ paciente.nombre }}</td>
+        <td>{{ paciente.apellido }}</td>
+        <td>{{ paciente.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinDatos>
+    <p>No hay pacientes registrados.</p>
+  </ng-template>
+</div>

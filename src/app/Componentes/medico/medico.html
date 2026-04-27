@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<div class="contenedor-medicos">
+  <h2>Gestión de Médicos</h2>
+
+  <form class="formulario-medico" (ngSubmit)="guardarMedico()">
+    <div class="grupo">
+      <label for="nombre">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="nuevoMedico.nombre"
+        placeholder="Ingrese el nombre"
+      />
+    </div>
+
+    <div class="grupo">
+      <label for="especialidad">Especialidad</label>
+      <input
+        type="text"
+        id="especialidad"
+        name="especialidad"
+        [(ngModel)]="nuevoMedico.especialidad"
+        placeholder="Ingrese la especialidad"
+      />
+    </div>
+
+    <button type="submit">Guardar Médico</button>
+  </form>
+
+  <table *ngIf="listaMedicos.length > 0; else sinDatos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Especialidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let medico of listaMedicos">
+        <td>{{ medico.id }}</td>
+        <td>{{ medico.nombre }}</td>
+        <td>{{ medico.especialidad }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinDatos>
+    <p>No hay médicos registrados.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+
+<div class="contenedor-consultas">
+  <h2 *ngIf="esAdmin()">Gestión de Consultas</h2>
+  <h2 *ngIf="esPaciente()">Mis Consultas</h2>
+  <h2 *ngIf="esMedico()">Consultas Asignadas</h2>
+
+  <form class="formulario-consulta" (ngSubmit)="guardarConsulta()" *ngIf="esAdmin() || esPaciente()">
+    <div class="grupo">
+      <label for="fecha">Fecha</label>
+      <input
+        type="date"
+        id="fecha"
+        name="fecha"
+        [(ngModel)]="nuevaConsulta.fecha"
+      />
+    </div>
+
+    <div class="grupo">
+      <label for="motivo">Motivo</label>
+      <input
+        type="text"
+        id="motivo"
+        name="motivo"
+        [(ngModel)]="nuevaConsulta.motivo"
+        placeholder="Ingrese el motivo"
+      />
+    </div>
+
+    <div class="grupo" *ngIf="esAdmin()">
+      <label for="paciente">Paciente</label>
+      <select
+        id="paciente"
+        name="paciente"
+        [(ngModel)]="nuevaConsulta.pacienteId"
+      >
+        <option [ngValue]="null">Seleccione un paciente</option>
+        <option *ngFor="let paciente of listaPacientes" [ngValue]="paciente.id">
+          {{ paciente.nombre }} {{ paciente.apellido }}
+        </option>
+      </select>
+    </div>
+
+    <div class="grupo">
+      <label for="medico">Médico</label>
+      <select
+        id="medico"
+        name="medico"
+        [(ngModel)]="nuevaConsulta.medicoId"
+      >
+        <option [ngValue]="null">Seleccione un médico</option>
+        <option *ngFor="let medico of listaMedicos" [ngValue]="medico.id">
+          {{ medico.nombre }} - {{ medico.especialidad }}
+        </option>
+      </select>
+    </div>
+
+    <div class="grupo grupo-completo">
+      <label>Servicios</label>
+
+      <div class="lista-servicios">
+        <label class="item-servicio" *ngFor="let servicio of listaServicios">
+          <input
+            type="checkbox"
+            [checked]="estaSeleccionado(servicio.id!)"
+            (change)="toggleServicio(servicio.id!)"
+          />
+          <span>{{ servicio.nombre }} - ${{ servicio.costo }}</span>
+        </label>
+      </div>
+    </div>
+
+    <button type="submit">
+      {{ esPaciente() ? 'Agendar Consulta' : 'Guardar Consulta' }}
+    </button>
+
+    <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
+    <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
+  </form>
+
+  <p *ngIf="esMedico()" class="mensaje-info">
+    Como médico, solo puede visualizar las consultas asignadas.
+  </p>
+
+  <table *ngIf="listaConsultas.length > 0; else sinDatos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Motivo</th>
+        <th>Paciente</th>
+        <th>Médico</th>
+        <th>Servicios</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consulta of listaConsultas">
+        <td>{{ consulta.id }}</td>
+        <td>{{ consulta.fecha }}</td>
+        <td>{{ consulta.motivo }}</td>
+        <td>{{ consulta.paciente.nombre }} {{ consulta.paciente.apellido }}</td>
+        <td>{{ consulta.medico.nombre }}</td>
+        <td>
+          <span *ngFor="let servicio of consulta.servicios; let i = index">
+            {{ servicio.nombre }}<span *ngIf="i < consulta.servicios.length - 1">, </span>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinDatos>
+    <p>No hay consultas registradas.</p>
+  </ng-template>
+</div>

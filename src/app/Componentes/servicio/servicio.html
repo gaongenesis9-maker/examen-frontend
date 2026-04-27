@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+<div class="contenedor-servicios">
+  <h2>Gestión de Servicios</h2>
+
+  <form class="formulario-servicio" (ngSubmit)="guardarServicio()">
+    <div class="grupo">
+      <label for="nombre">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="nuevoServicio.nombre"
+        placeholder="Ingrese el nombre"
+      />
+    </div>
+
+    <div class="grupo">
+      <label for="descripcion">Descripción</label>
+      <input
+        type="text"
+        id="descripcion"
+        name="descripcion"
+        [(ngModel)]="nuevoServicio.descripcion"
+        placeholder="Ingrese la descripción"
+      />
+    </div>
+
+    <div class="grupo">
+      <label for="costo">Costo</label>
+      <input
+        type="number"
+        id="costo"
+        name="costo"
+        [(ngModel)]="nuevoServicio.costo"
+        placeholder="Ingrese el costo"
+      />
+    </div>
+
+    <button type="submit">Guardar Servicio</button>
+  </form>
+
+  <table *ngIf="listaServicios.length > 0; else sinDatos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Costo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let servicio of listaServicios">
+        <td>{{ servicio.id }}</td>
+        <td>{{ servicio.nombre }}</td>
+        <td>{{ servicio.descripcion }}</td>
+        <td>{{ servicio.costo }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinDatos>
+    <p>No hay servicios registrados.</p>
+  </ng-template>
+</div>
