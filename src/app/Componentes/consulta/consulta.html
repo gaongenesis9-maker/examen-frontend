@@ -1,104 +1,98 @@
 <app-navbar></app-navbar>
 
 <div class="contenedor-consultas">
-  <div class="cabecera-consultas">
+  <div class="cabecera-panel">
     <div class="cabecera-texto">
-      <span class="cabecera-badge" *ngIf="esAdmin()">Panel Administrativo</span>
-      <span class="cabecera-badge" *ngIf="esPaciente()">Panel del Paciente</span>
-      <span class="cabecera-badge" *ngIf="esMedico()">Panel del Médico</span>
-
+      <span class="etiqueta-panel">Panel médico</span>
       <h2 *ngIf="esAdmin()">Gestión de Consultas</h2>
       <h2 *ngIf="esPaciente()">Mis Consultas</h2>
       <h2 *ngIf="esMedico()">Consultas Asignadas</h2>
 
-      <p class="cabecera-descripcion" *ngIf="esAdmin()">
-        Administra consultas, asigna pacientes, selecciona médicos y controla los servicios registrados.
+      <p *ngIf="esAdmin()">
+        Administra consultas, asigna pacientes y organiza la atención médica desde un solo panel.
       </p>
-      <p class="cabecera-descripcion" *ngIf="esPaciente()">
-        Agenda tus citas médicas y revisa de forma rápida las consultas que tienes registradas.
+      <p *ngIf="esPaciente()">
+        Revisa tu historial y agenda nuevas citas médicas de forma rápida y segura.
       </p>
-      <p class="cabecera-descripcion" *ngIf="esMedico()">
-        Visualiza únicamente las consultas asignadas a tu perfil profesional dentro del sistema.
+      <p *ngIf="esMedico()">
+        Visualiza únicamente las consultas que han sido asignadas a tu perfil profesional.
       </p>
     </div>
 
-    <div class="resumen-consultas">
-      <div class="card-resumen">
-        <span class="titulo-resumen">Consultas registradas</span>
-        <strong>{{ listaConsultas.length }}</strong>
+    <div class="cabecera-resumen">
+      <div class="resumen-card">
+        <span class="resumen-numero">{{ listaConsultas.length }}</span>
+        <span class="resumen-label">Consultas</span>
       </div>
 
-      <div class="card-resumen" *ngIf="esPaciente()">
-        <span class="titulo-resumen">Estado</span>
-        <strong>Paciente</strong>
+      <div class="resumen-card" *ngIf="esAdmin() || esPaciente()">
+        <span class="resumen-numero">{{ listaMedicos.length }}</span>
+        <span class="resumen-label">Médicos</span>
       </div>
 
-      <div class="card-resumen" *ngIf="esMedico()">
-        <span class="titulo-resumen">Estado</span>
-        <strong>Médico</strong>
-      </div>
-
-      <div class="card-resumen" *ngIf="esAdmin()">
-        <span class="titulo-resumen">Estado</span>
-        <strong>Administrador</strong>
+      <div class="resumen-card" *ngIf="esAdmin() || esPaciente()">
+        <span class="resumen-numero">{{ nuevaConsulta.serviciosIds.length }}</span>
+        <span class="resumen-label">Servicios elegidos</span>
       </div>
     </div>
   </div>
 
-  <div class="panel-principal">
-    <form class="formulario-consulta" (ngSubmit)="guardarConsulta()" *ngIf="esAdmin() || esPaciente()">
-      <div class="bloque-titulo">
-        <h3>{{ esPaciente() ? 'Agendar nueva consulta' : 'Registrar nueva consulta' }}</h3>
-        <p>Completa la información necesaria para guardar una consulta en el sistema.</p>
-      </div>
+  <form class="formulario-consulta" (ngSubmit)="guardarConsulta()" *ngIf="esAdmin() || esPaciente()">
+    <div class="bloque-formulario">
+      <h3>{{ esPaciente() ? 'Agendar nueva consulta' : 'Registrar consulta' }}</h3>
+      <p class="texto-bloque">
+        Completa la información necesaria para registrar correctamente una consulta médica.
+      </p>
 
-      <div class="grupo">
-        <label for="fecha">Fecha</label>
-        <input
-          type="date"
-          id="fecha"
-          name="fecha"
-          [(ngModel)]="nuevaConsulta.fecha"
-        />
-      </div>
+      <div class="grid-formulario">
+        <div class="grupo">
+          <label for="fecha">Fecha</label>
+          <input
+            type="date"
+            id="fecha"
+            name="fecha"
+            [(ngModel)]="nuevaConsulta.fecha"
+          />
+        </div>
 
-      <div class="grupo">
-        <label for="motivo">Motivo</label>
-        <input
-          type="text"
-          id="motivo"
-          name="motivo"
-          [(ngModel)]="nuevaConsulta.motivo"
-          placeholder="Ingrese el motivo"
-        />
-      </div>
+        <div class="grupo">
+          <label for="motivo">Motivo</label>
+          <input
+            type="text"
+            id="motivo"
+            name="motivo"
+            [(ngModel)]="nuevaConsulta.motivo"
+            placeholder="Ingrese el motivo"
+          />
+        </div>
 
-      <div class="grupo" *ngIf="esAdmin()">
-        <label for="paciente">Paciente</label>
-        <select
-          id="paciente"
-          name="paciente"
-          [(ngModel)]="nuevaConsulta.pacienteId"
-        >
-          <option [ngValue]="null">Seleccione un paciente</option>
-          <option *ngFor="let paciente of listaPacientes" [ngValue]="paciente.id">
-            {{ paciente.nombre }} {{ paciente.apellido }}
-          </option>
-        </select>
-      </div>
+        <div class="grupo" *ngIf="esAdmin()">
+          <label for="paciente">Paciente</label>
+          <select
+            id="paciente"
+            name="paciente"
+            [(ngModel)]="nuevaConsulta.pacienteId"
+          >
+            <option [ngValue]="null">Seleccione un paciente</option>
+            <option *ngFor="let paciente of listaPacientes" [ngValue]="paciente.id">
+              {{ paciente.nombre }} {{ paciente.apellido }}
+            </option>
+          </select>
+        </div>
 
-      <div class="grupo">
-        <label for="medico">Médico</label>
-        <select
-          id="medico"
-          name="medico"
-          [(ngModel)]="nuevaConsulta.medicoId"
-        >
-          <option [ngValue]="null">Seleccione un médico</option>
-          <option *ngFor="let medico of listaMedicos" [ngValue]="medico.id">
-            {{ medico.nombre }} - {{ medico.especialidad }}
-          </option>
-        </select>
+        <div class="grupo">
+          <label for="medico">Médico</label>
+          <select
+            id="medico"
+            name="medico"
+            [(ngModel)]="nuevaConsulta.medicoId"
+          >
+            <option [ngValue]="null">Seleccione un médico</option>
+            <option *ngFor="let medico of listaMedicos" [ngValue]="medico.id">
+              {{ medico.nombre }} - {{ medico.especialidad }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div class="grupo grupo-completo">
@@ -111,69 +105,68 @@
               [checked]="estaSeleccionado(servicio.id!)"
               (change)="toggleServicio(servicio.id!)"
             />
-            <div class="servicio-info">
+            <div class="contenido-servicio">
               <strong>{{ servicio.nombre }}</strong>
-              <span>${{ servicio.costo }}</span>
+              <span>{{ servicio.descripcion }}</span>
             </div>
+            <span class="precio-servicio">${{ servicio.costo }}</span>
           </label>
         </div>
       </div>
 
-      <button type="submit">
-        {{ esPaciente() ? 'Agendar Consulta' : 'Guardar Consulta' }}
-      </button>
+      <div class="acciones-formulario">
+        <button type="submit">
+          {{ esPaciente() ? 'Agendar Consulta' : 'Guardar Consulta' }}
+        </button>
+      </div>
 
       <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
       <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
-    </form>
-
-    <div class="panel-listado">
-      <div class="bloque-titulo">
-        <h3>Listado de consultas</h3>
-        <p *ngIf="esAdmin()">Vista completa de todas las consultas registradas.</p>
-        <p *ngIf="esPaciente()">Vista de tus consultas registradas en el sistema.</p>
-        <p *ngIf="esMedico()">Vista de las consultas asignadas a tu perfil.</p>
-      </div>
-
-      <p *ngIf="esMedico()" class="mensaje-info">
-        Como médico, solo puede visualizar las consultas asignadas.
-      </p>
-
-      <table *ngIf="listaConsultas.length > 0; else sinDatos">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Fecha</th>
-            <th>Motivo</th>
-            <th>Paciente</th>
-            <th>Médico</th>
-            <th>Servicios</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let consulta of listaConsultas">
-            <td>{{ consulta.id }}</td>
-            <td>{{ consulta.fecha }}</td>
-            <td>{{ consulta.motivo }}</td>
-            <td>{{ consulta.paciente.nombre }} {{ consulta.paciente.apellido }}</td>
-            <td>{{ consulta.medico.nombre }}</td>
-            <td>
-              <span *ngFor="let servicio of consulta.servicios; let i = index">
-                {{ servicio.nombre }}<span *ngIf="i < consulta.servicios.length - 1">, </span>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <ng-template #sinDatos>
-        <div class="estado-vacio">
-          <h4>No hay consultas registradas</h4>
-          <p>
-            Aún no se han encontrado consultas disponibles para este panel.
-          </p>
-        </div>
-      </ng-template>
     </div>
+  </form>
+
+  <p *ngIf="esMedico()" class="mensaje-info">
+    Como médico, solo puede visualizar las consultas asignadas.
+  </p>
+
+  <div class="tabla-panel">
+    <div class="tabla-header">
+      <h3>Listado de consultas</h3>
+      <span class="tabla-badge">{{ listaConsultas.length }} registradas</span>
+    </div>
+
+    <table *ngIf="listaConsultas.length > 0; else sinDatos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Motivo</th>
+          <th>Paciente</th>
+          <th>Médico</th>
+          <th>Servicios</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consulta of listaConsultas">
+          <td>{{ consulta.id }}</td>
+          <td>{{ consulta.fecha }}</td>
+          <td>{{ consulta.motivo }}</td>
+          <td>{{ consulta.paciente.nombre }} {{ consulta.paciente.apellido }}</td>
+          <td>{{ consulta.medico.nombre }}</td>
+          <td>
+            <span *ngFor="let servicio of consulta.servicios; let i = index">
+              {{ servicio.nombre }}<span *ngIf="i < consulta.servicios.length - 1">, </span>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #sinDatos>
+      <div class="sin-datos-panel">
+        <h4>No hay consultas registradas</h4>
+        <p>Cuando se registren consultas en el sistema, aparecerán en este panel.</p>
+      </div>
+    </ng-template>
   </div>
 </div>

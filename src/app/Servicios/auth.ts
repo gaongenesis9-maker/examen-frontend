@@ -1,50 +1,50 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { Login } from '../Entidades/login';
-import { Usuario } from '../Entidades/usuario';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
+  private readonly tokenKey = 'authToken';
+  private readonly userKey = 'authUser';
 
-  private apiUrl = `${environment.apiUrl}/auth`;
+  constructor(private readonly http: HttpClient) {}
 
-  constructor(private http: HttpClient) {}
-
-  login(datos: Login): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, datos);
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/auth/login`, { username, password })
+      .pipe(
+        tap(response => {
+          if (response.token) {
+            localStorage.setItem(this.tokenKey, response.token);
+            localStorage.setItem(this.userKey, JSON.stringify(response.usuario));
+          }
+        })
+      );
   }
 
-  registrar(usuario: Usuario): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, usuario);
+  logout(): void {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
   }
 
-  guardarToken(token: string): void {
-    localStorage.setItem('token', token);
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
-  obtenerToken(): string | null {
-    return localStorage.getItem('token');
+  getUsuario(): any {
+    const user = localStorage.getItem(this.userKey);
+    return user ? JSON.parse(user) : null;
   }
 
-  guardarRol(rol: string): void {
-    localStorage.setItem('rol', rol);
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
 
-  obtenerRol(): string | null {
-    return localStorage.getItem('rol');
-  }
-
-  cerrarSesion(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('rol');
-  }
-
-  estaLogueado(): boolean {
-    return this.obtenerToken() !== null;
+  registrar(datos: any): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/auth/registro`, datos);
   }
 }

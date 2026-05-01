@@ -1,6 +1,14 @@
-<div class="registro-container">
-  <div class="registro-card">
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <a routerLink="/" class="btn-volver">← Volver al inicio</a>
+      <span class="login-badge">Registro</span>
+    </div>
+
     <h2>Crear Cuenta</h2>
+    <p class="subtexto-login">
+      Registra un nuevo usuario para acceder al sistema BioTech.
+    </p>
 
     <form (ngSubmit)="registrar()">
       <label for="username">Usuario</label>
@@ -21,12 +29,17 @@
         placeholder="Ingrese su contraseña"
       />
 
-      <button type="submit">Registrarse</button>
+      <label for="rol">Rol</label>
+      <select id="rol" name="rol" [(ngModel)]="rol">
+        <option value="PACIENTE">PACIENTE</option>
+        <option value="MEDICO">MEDICO</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+
+      <button type="submit">Crear Cuenta</button>
 
       <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
-      <p *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</p>
-
-      <a routerLink="/login" class="volver-login">Ya tengo cuenta</a>
+      <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
     </form>
   </div>
 </div>

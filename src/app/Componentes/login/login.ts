@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -6,7 +7,7 @@ import { Auth } from '../../Servicios/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -21,14 +22,13 @@ export class Login {
   ) {}
 
   iniciarSesion(): void {
-    const datos = {
-      username: this.username,
-      password: this.password
-    };
+    if (!this.username.trim() || !this.password.trim()) {
+      this.mensajeError = 'Debe completar usuario y contraseña.';
+      return;
+    }
 
-    this.authService.login(datos).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: (respuesta) => {
-        this.authService.guardarToken(respuesta.token);
         localStorage.setItem('rol', respuesta.rol);
         this.mensajeError = '';
 
