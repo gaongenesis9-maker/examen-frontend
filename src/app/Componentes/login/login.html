@@ -1,6 +1,14 @@
 <div class="login-container">
   <div class="login-card">
+    <div class="login-header">
+      <a routerLink="/" class="btn-volver">← Volver al inicio</a>
+      <span class="login-badge">Acceso al sistema</span>
+    </div>
+
     <h2>Iniciar Sesión</h2>
+    <p class="subtexto-login">
+      Ingresa con tu usuario y contraseña para acceder a tu panel dentro de BioTech.
+    </p>
 
     <form (ngSubmit)="iniciarSesion()">
       <label for="username">Usuario</label>
@@ -25,5 +33,10 @@
 
       <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
     </form>
+
+    <div class="login-footer">
+      <span>¿Aún no tienes cuenta?</span>
+      <a routerLink="/registro">Crear cuenta</a>
+    </div>
   </div>
 </div>

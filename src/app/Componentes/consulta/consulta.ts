@@ -68,6 +68,34 @@ export class Consulta implements OnInit {
     return this.rol === 'MEDICO';
   }
 
+  get totalConsultas(): number {
+    return this.listaConsultas.length;
+  }
+
+  get totalMedicos(): number {
+    return this.listaMedicos.length;
+  }
+
+  get totalServiciosSeleccionados(): number {
+    return this.nuevaConsulta.serviciosIds.length;
+  }
+
+  get tituloPanel(): string {
+    if (this.esAdmin()) return 'Gestión de Consultas';
+    if (this.esPaciente()) return 'Mis Consultas';
+    return 'Consultas Asignadas';
+  }
+
+  get descripcionPanel(): string {
+    if (this.esAdmin()) {
+      return 'Administra consultas, asigna pacientes y organiza la atención médica desde un solo panel.';
+    }
+    if (this.esPaciente()) {
+      return 'Consulta tu historial y agenda nuevas citas médicas de forma rápida y segura.';
+    }
+    return 'Visualiza únicamente las consultas médicas que fueron asignadas a tu perfil.';
+  }
+
   cargarConsultas(): void {
     if (this.esAdmin()) {
       this.consultaService.listar().subscribe({

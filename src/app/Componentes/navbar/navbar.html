@@ -1,9 +1,13 @@
 <nav class="navbar">
   <div class="navbar-logo">
-    <h2>BioTech</h2>
+    <a routerLink="/" class="logo-link">BioTech</a>
   </div>
 
   <ul class="navbar-links">
+    <li *ngIf="esAdmin()">
+      <a routerLink="/usuarios" routerLinkActive="activo">Usuarios</a>
+    </li>
+
     <li *ngIf="esAdmin()">
       <a routerLink="/pacientes" routerLinkActive="activo">Pacientes</a>
     </li>
@@ -22,6 +26,7 @@
   </ul>
 
   <div class="navbar-derecha">
+    <a routerLink="/" class="btn-inicio">Inicio</a>
     <span class="rol-usuario">Rol: {{ rol }}</span>
     <button class="btn-salir" (click)="cerrarSesion()">Cerrar sesión</button>
   </div>

@@ -1,7 +1,10 @@
 <div class="inicio-container">
   <div class="inicio-overlay">
     <div class="inicio-contenido">
+      <span class="etiqueta-sistema">Plataforma médica digital</span>
+
       <h1>BioTech</h1>
+
       <p class="descripcion-principal">
         Bienvenido a BioTech, una plataforma médica digital diseñada para
         optimizar la gestión de pacientes, médicos, servicios y consultas de
@@ -11,6 +14,38 @@
       <div class="inicio-botones">
         <a routerLink="/login" class="btn btn-principal">Iniciar Sesión</a>
         <a routerLink="/registro" class="btn btn-secundario">Crear Cuenta</a>
+      </div>
+    </div>
+
+    <div class="inicio-panel-lateral">
+      <div class="panel-card">
+        <h3>Acceso por roles</h3>
+
+        <div class="roles-grid">
+          <div class="rol-item">
+            <span class="rol-icono">A</span>
+            <div>
+              <strong>Administrador</strong>
+              <p>Gestiona usuarios, pacientes, médicos, servicios y consultas.</p>
+            </div>
+          </div>
+
+          <div class="rol-item">
+            <span class="rol-icono">P</span>
+            <div>
+              <strong>Paciente</strong>
+              <p>Agenda consultas y visualiza únicamente su información.</p>
+            </div>
+          </div>
+
+          <div class="rol-item">
+            <span class="rol-icono">M</span>
+            <div>
+              <strong>Médico</strong>
+              <p>Revisa exclusivamente las consultas que le fueron asignadas.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

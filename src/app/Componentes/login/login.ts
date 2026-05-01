@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { Auth } from '../../Servicios/auth';
-import { Login as LoginRequest } from '../../Entidades/login';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -23,7 +21,7 @@ export class Login {
   ) {}
 
   iniciarSesion(): void {
-    const datos: LoginRequest = {
+    const datos = {
       username: this.username,
       password: this.password
     };
@@ -31,17 +29,17 @@ export class Login {
     this.authService.login(datos).subscribe({
       next: (respuesta) => {
         this.authService.guardarToken(respuesta.token);
-        this.authService.guardarRol(respuesta.rol);
+        localStorage.setItem('rol', respuesta.rol);
         this.mensajeError = '';
 
-        if (respuesta.rol === 'ADMIN') {
-          this.router.navigate(['/pacientes']);
-        } else if (respuesta.rol === 'MEDICO') {
+        const rol = (respuesta.rol || '').toUpperCase();
+
+        if (rol === 'ADMIN') {
+          this.router.navigate(['/usuarios']);
+        } else if (rol === 'MEDICO' || rol === 'PACIENTE') {
           this.router.navigate(['/consultas']);
-        } else if (respuesta.rol === 'PACIENTE') {
-          this.router.navigate(['/pacientes']);
         } else {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         }
       },
       error: () => {
