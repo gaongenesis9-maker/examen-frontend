@@ -4,7 +4,7 @@ import { CanActivateFn, Router } from '@angular/router';
 export const rolGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('authToken');
   const rol = (localStorage.getItem('rol') || '').toUpperCase();
 
   if (!token) {

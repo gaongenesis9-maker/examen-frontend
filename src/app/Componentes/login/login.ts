@@ -28,11 +28,14 @@ export class Login {
     }
 
     this.authService.login(this.username, this.password).subscribe({
-      next: (respuesta) => {
-        localStorage.setItem('rol', respuesta.rol);
+      next: (respuesta: any) => {
+        if (respuesta?.rol) {
+          localStorage.setItem('rol', respuesta.rol);
+        }
+
         this.mensajeError = '';
 
-        const rol = (respuesta.rol || '').toUpperCase();
+        const rol = (respuesta?.rol || '').toUpperCase();
 
         if (rol === 'ADMIN') {
           this.router.navigate(['/usuarios']);
