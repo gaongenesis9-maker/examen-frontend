@@ -7,6 +7,10 @@ export const interceptor: HttpInterceptorFn = (req, next) => {
   console.log('TOKEN:', token);
   console.log('URL:', req.url);
 
+  if (req.url.includes('/auth/login') || req.url.includes('/auth/register')) {
+    return next(req);
+  }
+
   if (token) {
     const reqClonada = req.clone({
       setHeaders: {

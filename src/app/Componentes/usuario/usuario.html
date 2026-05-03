@@ -1,1 +1,87 @@
-<p>usuario works!</p>
+<app-navbar></app-navbar>
+
+<div class="contenedor-usuarios">
+  <div class="cabecera-usuarios">
+    <div class="cabecera-texto">
+      <span class="etiqueta-panel">Administración</span>
+      <h2>Gestión de Usuarios</h2>
+      <p>
+        Administra las cuentas del sistema, actualiza roles y elimina usuarios
+        según las necesidades de la plataforma.
+      </p>
+    </div>
+
+    <div class="cabecera-resumen">
+      <div class="resumen-card">
+        <span class="resumen-numero">{{ listaUsuarios.length }}</span>
+        <span class="resumen-label">Usuarios</span>
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
+  <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
+
+  <div class="tabla-panel">
+    <div class="tabla-header">
+      <h3>Listado de usuarios</h3>
+      <span class="tabla-badge">{{ listaUsuarios.length }} registrados</span>
+    </div>
+
+    <table *ngIf="listaUsuarios.length > 0; else sinUsuarios">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Contraseña</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let usuario of listaUsuarios">
+          <td>{{ usuario.id }}</td>
+
+          <td *ngIf="editandoId !== usuario.id">{{ usuario.username }}</td>
+          <td *ngIf="editandoId === usuario.id">
+            <input [(ngModel)]="usuarioEditar.username" />
+          </td>
+
+          <td *ngIf="editandoId !== usuario.id">{{ usuario.password }}</td>
+          <td *ngIf="editandoId === usuario.id">
+            <input [(ngModel)]="usuarioEditar.password" />
+          </td>
+
+          <td *ngIf="editandoId !== usuario.id">{{ usuario.rol }}</td>
+          <td *ngIf="editandoId === usuario.id">
+            <select [(ngModel)]="usuarioEditar.rol">
+              <option value="ADMIN">ADMIN</option>
+              <option value="PACIENTE">PACIENTE</option>
+              <option value="MEDICO">MEDICO</option>
+            </select>
+          </td>
+
+          <td class="acciones">
+            <ng-container *ngIf="editandoId !== usuario.id; else modoEdicion">
+              <button class="btn-editar" (click)="editar(usuario)">Editar</button>
+              <button class="btn-eliminar" (click)="eliminar(usuario.id)">Eliminar</button>
+            </ng-container>
+
+            <ng-template #modoEdicion>
+              <button class="btn-guardar" (click)="guardarEdicion(usuario.id)">Guardar</button>
+              <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #sinUsuarios>
+      <div class="sin-datos-panel">
+        <h4>No hay usuarios registrados</h4>
+        <p>Cuando existan usuarios en el sistema, aparecerán en este panel.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
