@@ -127,8 +127,7 @@
   color: #334155;
 }
 
-.registro-card input,
-.registro-card select {
+.registro-card input {
   width: 100%;
   box-sizing: border-box;
   padding: 15px 16px;
@@ -148,14 +147,12 @@
   color: #94a3b8;
 }
 
-.registro-card input:hover,
-.registro-card select:hover {
+.registro-card input:hover {
   background: rgba(255, 255, 255, 0.96);
   border-color: rgba(96, 165, 250, 0.65);
 }
 
-.registro-card input:focus,
-.registro-card select:focus {
+.registro-card input:focus {
   outline: none;
   background: #ffffff;
   border-color: #2563eb;

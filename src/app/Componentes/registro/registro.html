@@ -7,7 +7,7 @@
 
     <h2>Crear Cuenta</h2>
     <p class="subtexto-registro">
-      Registra un nuevo usuario para acceder al sistema BioTech.
+      Registra tu cuenta para acceder al sistema BioTech como paciente.
     </p>
 
     <form (ngSubmit)="registrar()">
@@ -28,17 +28,6 @@
         [(ngModel)]="password"
         placeholder="Ingrese su contraseña"
       />
-
-      <label for="rol">Rol</label>
-      <select
-        id="rol"
-        name="rol"
-        [(ngModel)]="rol"
-      >
-        <option value="PACIENTE">PACIENTE</option>
-        <option value="MEDICO">MEDICO</option>
-        <option value="ADMIN">ADMIN</option>
-      </select>
 
       <button type="submit">Crear Cuenta</button>
 
