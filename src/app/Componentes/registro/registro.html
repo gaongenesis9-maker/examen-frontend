@@ -1,12 +1,12 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
+<div class="registro-container">
+  <div class="registro-card">
+    <div class="registro-header">
       <a routerLink="/" class="btn-volver">← Volver al inicio</a>
-      <span class="login-badge">Registro</span>
+      <span class="registro-badge">Registro</span>
     </div>
 
     <h2>Crear Cuenta</h2>
-    <p class="subtexto-login">
+    <p class="subtexto-registro">
       Registra un nuevo usuario para acceder al sistema BioTech.
     </p>
 
@@ -30,7 +30,11 @@
       />
 
       <label for="rol">Rol</label>
-      <select id="rol" name="rol" [(ngModel)]="rol">
+      <select
+        id="rol"
+        name="rol"
+        [(ngModel)]="rol"
+      >
         <option value="PACIENTE">PACIENTE</option>
         <option value="MEDICO">MEDICO</option>
         <option value="ADMIN">ADMIN</option>
@@ -41,5 +45,10 @@
       <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
       <p *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
     </form>
+
+    <div class="registro-footer">
+      <span>¿Ya tienes cuenta?</span>
+      <a routerLink="/login">Iniciar sesión</a>
+    </div>
   </div>
 </div>
