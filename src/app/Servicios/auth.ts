@@ -29,6 +29,7 @@ export class Auth {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
+    localStorage.removeItem('rol');
   }
 
   getToken(): string | null {
@@ -45,6 +46,6 @@ export class Auth {
   }
 
   registrar(datos: any): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/auth/registro`, datos);
+    return this.http.post<any>(`${environment.apiUrl}/auth/register`, datos);
   }
 }
