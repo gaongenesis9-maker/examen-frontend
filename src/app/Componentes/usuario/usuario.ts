@@ -48,8 +48,6 @@ export class Usuario implements OnInit {
       password: usuario.password,
       rol: usuario.rol
     };
-    this.mensajeError = '';
-    this.mensajeExito = '';
   }
 
   cancelarEdicion(): void {

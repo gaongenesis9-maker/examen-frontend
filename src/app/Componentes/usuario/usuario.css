@@ -5,7 +5,7 @@
 }
 
 .contenedor-usuarios {
-  max-width: 1220px;
+  max-width: 1200px;
   margin: 30px auto;
   padding: 30px;
   background: linear-gradient(180deg, #ffffff 0%, #fdfefe 100%);
@@ -13,32 +13,14 @@
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.08),
     0 4px 10px rgba(37, 99, 235, 0.04);
-  position: relative;
-  overflow: hidden;
-}
-
-.contenedor-usuarios::before {
-  content: "";
-  position: absolute;
-  top: -70px;
-  right: -70px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 72%);
-  border-radius: 50%;
-  pointer-events: none;
 }
 
 .cabecera-usuarios {
   display: flex;
   justify-content: space-between;
-  gap: 24px;
   align-items: flex-start;
+  gap: 24px;
   margin-bottom: 26px;
-}
-
-.cabecera-texto {
-  flex: 1;
 }
 
 .etiqueta-panel {
@@ -50,26 +32,19 @@
   color: #1d4ed8;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.3px;
 }
 
-.cabecera-texto h2 {
+.cabecera-usuarios h2 {
   margin: 0 0 10px;
   font-size: 34px;
   font-weight: 800;
   color: #0f172a;
 }
 
-.cabecera-texto p {
+.cabecera-usuarios p {
   margin: 0;
-  max-width: 720px;
   font-size: 16px;
-  line-height: 1.7;
   color: #64748b;
-}
-
-.cabecera-resumen {
-  min-width: 180px;
 }
 
 .resumen-card {
@@ -77,10 +52,10 @@
   border: 1px solid #dbeafe;
   border-radius: 18px;
   padding: 18px 16px;
+  min-width: 180px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.08);
 }
 
 .resumen-numero {
@@ -164,7 +139,6 @@ th {
   text-align: left;
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.3px;
 }
 
 td {
@@ -172,7 +146,6 @@ td {
   font-size: 14px;
   color: #334155;
   border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
 }
 
 tbody tr:nth-child(even) {
@@ -183,23 +156,13 @@ tbody tr:hover {
   background: #eff6ff;
 }
 
-input,
-select {
+td input,
+td select {
   width: 100%;
   padding: 10px 12px;
-  font-size: 14px;
-  color: #0f172a;
-  background: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
   box-sizing: border-box;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 .acciones {
@@ -209,52 +172,35 @@ select:focus {
 }
 
 .btn-editar,
-.btn-eliminar,
 .btn-guardar,
-.btn-cancelar {
+.btn-cancelar,
+.btn-eliminar {
   border: none;
   border-radius: 10px;
-  padding: 9px 12px;
+  padding: 10px 12px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .btn-editar {
   background: #dbeafe;
-  color: #1d4ed8;
+  color: #1e3a8a;
 }
 
-.btn-editar:hover {
-  background: #bfdbfe;
+.btn-guardar {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.btn-cancelar {
+  background: #f1f5f9;
+  color: #475569;
 }
 
 .btn-eliminar {
   background: #fee2e2;
   color: #b91c1c;
-}
-
-.btn-eliminar:hover {
-  background: #fecaca;
-}
-
-.btn-guardar {
-  background: #dcfce7;
-  color: #15803d;
-}
-
-.btn-guardar:hover {
-  background: #bbf7d0;
-}
-
-.btn-cancelar {
-  background: #e2e8f0;
-  color: #334155;
-}
-
-.btn-cancelar:hover {
-  background: #cbd5e1;
 }
 
 .sin-datos-panel {
@@ -272,29 +218,11 @@ select:focus {
   margin: 0;
   color: #64748b;
   font-size: 15px;
-  line-height: 1.6;
 }
 
 @media (max-width: 900px) {
   .cabecera-usuarios {
     flex-direction: column;
-  }
-}
-
-@media (max-width: 768px) {
-  .contenedor-usuarios {
-    margin: 20px 12px;
-    padding: 20px;
-  }
-
-  .cabecera-texto h2 {
-    font-size: 28px;
-  }
-
-  .tabla-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
   }
 
   table {

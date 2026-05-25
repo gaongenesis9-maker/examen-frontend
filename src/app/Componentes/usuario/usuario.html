@@ -2,20 +2,15 @@
 
 <div class="contenedor-usuarios">
   <div class="cabecera-usuarios">
-    <div class="cabecera-texto">
+    <div>
       <span class="etiqueta-panel">Administración</span>
       <h2>Gestión de Usuarios</h2>
-      <p>
-        Administra las cuentas del sistema, actualiza roles y elimina usuarios
-        según las necesidades de la plataforma.
-      </p>
+      <p>Administra las cuentas registradas dentro del sistema BioTech.</p>
     </div>
 
-    <div class="cabecera-resumen">
-      <div class="resumen-card">
-        <span class="resumen-numero">{{ listaUsuarios.length }}</span>
-        <span class="resumen-label">Usuarios</span>
-      </div>
+    <div class="resumen-card">
+      <span class="resumen-numero">{{ listaUsuarios.length }}</span>
+      <span class="resumen-label">Usuarios registrados</span>
     </div>
   </div>
 
@@ -25,7 +20,7 @@
   <div class="tabla-panel">
     <div class="tabla-header">
       <h3>Listado de usuarios</h3>
-      <span class="tabla-badge">{{ listaUsuarios.length }} registrados</span>
+      <span class="tabla-badge">{{ listaUsuarios.length }} activos</span>
     </div>
 
     <table *ngIf="listaUsuarios.length > 0; else sinUsuarios">
@@ -63,15 +58,15 @@
           </td>
 
           <td class="acciones">
-            <ng-container *ngIf="editandoId !== usuario.id; else modoEdicion">
+            <ng-container *ngIf="editandoId !== usuario.id">
               <button class="btn-editar" (click)="editar(usuario)">Editar</button>
               <button class="btn-eliminar" (click)="eliminar(usuario.id)">Eliminar</button>
             </ng-container>
 
-            <ng-template #modoEdicion>
+            <ng-container *ngIf="editandoId === usuario.id">
               <button class="btn-guardar" (click)="guardarEdicion(usuario.id)">Guardar</button>
               <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
-            </ng-template>
+            </ng-container>
           </td>
         </tr>
       </tbody>
@@ -80,7 +75,7 @@
     <ng-template #sinUsuarios>
       <div class="sin-datos-panel">
         <h4>No hay usuarios registrados</h4>
-        <p>Cuando existan usuarios en el sistema, aparecerán en este panel.</p>
+        <p>Los usuarios aparecerán aquí cuando sean creados en el sistema.</p>
       </div>
     </ng-template>
   </div>

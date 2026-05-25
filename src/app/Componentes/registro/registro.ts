@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 import { Auth } from '../../Servicios/auth';
+import { Usuario } from '../../Entidades/usuario';
 
 @Component({
   selector: 'app-registro',
@@ -32,13 +33,13 @@ export class Registro {
       return;
     }
 
-    const datos = {
+    const nuevoUsuario: Usuario = {
       username: this.username,
       password: this.password,
       rol: this.rol
     };
 
-    this.authService.registrar(datos).subscribe({
+    this.authService.registrar(nuevoUsuario).subscribe({
       next: () => {
         this.mensajeExito = 'Cuenta creada correctamente.';
         this.username = '';
