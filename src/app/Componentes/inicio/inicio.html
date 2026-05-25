@@ -1,5 +1,21 @@
 <div class="inicio-container">
-  <div class="inicio-overlay">
+  <header class="topbar-publica">
+    <div class="topbar-logo">BioTech</div>
+
+    <nav class="topbar-menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#acerca">Acerca de</a>
+      <a href="#mision">Misión</a>
+      <a href="#vision">Visión</a>
+    </nav>
+
+    <div class="topbar-acciones">
+      <a routerLink="/login" class="btn-mini btn-login">Iniciar sesión</a>
+      <a routerLink="/registro" class="btn-mini btn-registro">Crear cuenta</a>
+    </div>
+  </header>
+
+  <section class="inicio-overlay" id="inicio">
     <div class="inicio-contenido">
       <span class="etiqueta-sistema">Plataforma médica digital</span>
 
@@ -48,10 +64,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <div class="info-empresa">
-    <div class="seccion-info">
+    <section class="seccion-info" id="acerca">
       <h2>¿Quiénes somos?</h2>
       <p>
         En BioTech trabajamos para modernizar la atención médica mediante una
@@ -59,10 +75,10 @@
         en un solo sistema. Nuestro objetivo es mejorar la organización de la
         información clínica y agilizar los procesos de atención.
       </p>
-    </div>
+    </section>
 
     <div class="seccion-mv">
-      <div class="card-mv">
+      <section class="card-mv" id="mision">
         <img src="imagenes/mision.jpg" alt="Misión de BioTech" />
         <div class="texto-mv">
           <h3>Misión</h3>
@@ -73,9 +89,9 @@
             mejor experiencia para pacientes y profesionales.
           </p>
         </div>
-      </div>
+      </section>
 
-      <div class="card-mv">
+      <section class="card-mv" id="vision">
         <img src="imagenes/vision.jpg" alt="Visión de BioTech" />
         <div class="texto-mv">
           <h3>Visión</h3>
@@ -86,7 +102,7 @@
             nacional e internacional.
           </p>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </div>

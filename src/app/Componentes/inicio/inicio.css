@@ -2,6 +2,11 @@
   display: block;
   min-height: 100vh;
   background: #f8fafc;
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .inicio-container {
@@ -11,8 +16,93 @@
     radial-gradient(circle at 85% 20%, rgba(59, 130, 246, 0.18), transparent 18%),
     radial-gradient(circle at 80% 85%, rgba(30, 64, 175, 0.18), transparent 20%),
     linear-gradient(135deg, #dbeafe 0%, #eff6ff 40%, #dbeafe 70%, #c7d2fe 100%);
-  padding: 30px;
+  padding: 24px;
   box-sizing: border-box;
+}
+
+.topbar-publica {
+  max-width: 1250px;
+  margin: 0 auto 26px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  box-shadow:
+    0 18px 32px rgba(15, 23, 42, 0.10),
+    0 8px 20px rgba(37, 99, 235, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: sticky;
+  top: 12px;
+  z-index: 50;
+}
+
+.topbar-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+.topbar-menu {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.topbar-menu a {
+  text-decoration: none;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.topbar-menu a:hover {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.topbar-acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-mini {
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.btn-login {
+  background: #eef2ff;
+  color: #1e3a8a;
+  border: 1px solid #c7d2fe;
+}
+
+.btn-login:hover {
+  background: #e0e7ff;
+  transform: translateY(-1px);
+}
+
+.btn-registro {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: white;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+}
+
+.btn-registro:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
 }
 
 .inicio-overlay {
@@ -128,7 +218,6 @@
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   border-radius: 24px;
   padding: 26px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .panel-card h3 {
@@ -198,6 +287,7 @@
   padding: 30px;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
   margin-bottom: 30px;
+  scroll-margin-top: 120px;
 }
 
 .seccion-info h2 {
@@ -225,6 +315,7 @@
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  scroll-margin-top: 120px;
 }
 
 .card-mv:hover {
@@ -257,6 +348,18 @@
 }
 
 @media (max-width: 1000px) {
+  .topbar-publica {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .topbar-logo,
+  .topbar-menu,
+  .topbar-acciones {
+    justify-content: center;
+    text-align: center;
+  }
+
   .inicio-overlay {
     grid-template-columns: 1fr;
   }
